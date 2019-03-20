@@ -2,9 +2,9 @@ import os
 import numpy as np     
 import csv
 
-takeout = "../Takeout"
+takeout = "../Takeout/Muzyka Google Play/Playlisty"
 csv_out = '../Consolidated.csv'
-csv_header = 'Tytuł,Album,Artysta,Czas trwania (ms),Ocena,Liczba odsłuchań,Usunięto'
+csv_header = 'Tytuł,Album,Artysta,Czas trwania (ms),Ocena,Liczba odsłuchań,Usunięto,Indeks playlisty'
 
 
 CSVFiles = []
@@ -25,8 +25,9 @@ for csvFile in CSVFiles:
         reader = csv.reader(f, delimiter=",")
         next(reader, None)
         for row in reader:
-            csv_merge.write(','.join(row).replace('&quot;',''))
-            csv_merge.write('\n')
+            if row[0] is not "":
+                csv_merge.write(','.join(row).replace('&quot;','').replace('&amp;','').replace('&#39;',''))
+                csv_merge.write('\n')
 
  
 print(csv_merge)
